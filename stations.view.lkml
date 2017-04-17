@@ -1,6 +1,21 @@
 view: stations {
-  sql_table_name: [fh-bigquery:weather_gsod.stations]
-    ;;
+  sql_table_name: `lookerdata.weather.stations` ;;
+
+  dimension: station_id {
+    primary_key: yes
+    type: string
+    sql: CASE WHEN ${usaf} = '999999' THEN ${wban} ELSE ${usaf} END;;
+  }
+
+  dimension: usaf {
+    type: string
+    sql: ${TABLE}.usaf ;;
+  }
+
+  dimension: wban {
+    type: string
+    sql: ${TABLE}.wban ;;
+  }
 
   dimension: begin {
     type: string
@@ -32,15 +47,24 @@ view: stations {
     sql: ${TABLE}.fips ;;
   }
 
-  dimension: lat {
+  dimension: latitude {
+    hidden: yes
     type: number
     sql: ${TABLE}.lat ;;
   }
 
-  dimension: lon {
+  dimension: longitude {
+    hidden: yes
     type: number
     sql: ${TABLE}.lon ;;
   }
+
+  dimension: location {
+    type: location
+    sql_latitude:${latitude};;
+    sql_longitude:${longitude};;
+  }
+
 
   dimension: name {
     type: string
@@ -52,19 +76,9 @@ view: stations {
     sql: ${TABLE}.state ;;
   }
 
-  dimension: usaf {
-    type: string
-    sql: ${TABLE}.usaf ;;
-  }
-
-  dimension: wban {
-    type: string
-    sql: ${TABLE}.wban ;;
-  }
-
   measure: count {
     type: count
-    approximate_threshold: 100000
+#     approximate_threshold: 100000
     drill_fields: [name]
   }
 }

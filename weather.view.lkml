@@ -1,6 +1,11 @@
-view: gsod2015 {
-  sql_table_name: [fh-bigquery:weather_gsod.gsod2015]
+view: weather {
+  sql_table_name: `lookerdata.weather.gsod*`
     ;;
+
+  dimension: partition_year {
+    type: string
+    sql: REGEXP_EXTRACT(_TABLE_SUFFIX,r'\d\d\d\d[A-Z][a-z][a-z]') ;;
+  }
 
   dimension: count_dewp {
     type: number
@@ -164,7 +169,7 @@ view: gsod2015 {
 
   measure: count {
     type: count
-    approximate_threshold: 100000
+#     approximate_threshold: 100000
     drill_fields: []
   }
 }
