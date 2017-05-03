@@ -37,7 +37,7 @@ view: zipcode_station {
             from `lookerdata.weather.zipcode`
         --     where zip_code in (11211, 20171, 20170, 10009)
             where latitude is not null
-            limit 100
+        --    limit 100
          ) AS p
 
            WHERE
@@ -54,8 +54,7 @@ view: zipcode_station {
 
       )
       group by 1, 2
-       LIMIT 100
-
+      -- LIMIT 100
        ;;
 
   }

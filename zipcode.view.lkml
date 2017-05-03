@@ -40,6 +40,10 @@ view: zipcode {
     sql_longitude: ${TABLE}.longitude ;;
   }
 
+  measure: count {
+    type: count
+  }
+
   set: detail {
     fields: [
       zip_code,
