@@ -3,8 +3,10 @@ view: zipcode {
 
   dimension: zip_code {
     primary_key: yes
-    type: zipcode
-    sql: ${TABLE}.zip_code ;;
+#     map_layer_name: us_zipcode_tabulation_areas
+#     type: zipcode
+    type: number
+    sql: ${TABLE}.zip_code;;
   }
 
   dimension: latitude {

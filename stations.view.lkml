@@ -4,7 +4,7 @@ view: stations {
   dimension: station_id {
     primary_key: yes
     type: string
-    sql: CASE WHEN ${usaf} = '999999' THEN ${wban} ELSE ${usaf} END;;
+    sql: CASE WHEN ${wban} = '99999' THEN ${usaf} ELSE ${wban} END;;
   }
 
   dimension: usaf {
@@ -40,11 +40,6 @@ view: stations {
   dimension: end {
     type: string
     sql: ${TABLE}.end ;;
-  }
-
-  dimension: fips {
-    type: string
-    sql: ${TABLE}.fips ;;
   }
 
   dimension: latitude {
