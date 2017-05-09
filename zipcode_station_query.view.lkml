@@ -1,4 +1,4 @@
-explore: zipcode_station_query {}
+# explore: zipcode_station_query {}
 
 view: zipcode_station_query {
   derived_table: {

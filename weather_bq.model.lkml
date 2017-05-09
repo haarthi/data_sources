@@ -4,21 +4,6 @@ include: "*.view.lkml"         # include all views in this project
 include: "*.dashboard.lookml"  # include all dashboards in this project
 
 explore: gsod {
-  # join: stations {
-  #   type: full_outer
-  #   relationship: many_to_one
-  #   sql_on: ${gsod.station_id} = ${stations.station_id} ;;
-  # }
-  # join: zipcode_station {
-  #   type: left_outer
-  #   relationship: one_to_many
-  #   sql_on: ${stations.station_id} = ${zipcode_station.nearest_station_id} ;;
-  # }
-  # join: zipcode {
-  #   type: left_outer
-  #   relationship: one_to_one
-  #   sql_on: ${zipcode_station.zip_code} = ${zipcode.zip_code} ;;
-  # }
   join: zipcode_station {
     view_label: "Stations"
     from: test_query
