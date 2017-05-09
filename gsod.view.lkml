@@ -24,8 +24,8 @@ view: gsod {
     sql: ${TABLE}.wban ;;
   }
 
-  dimension: wdsp {
-    hidden: yes
+  dimension: windspeed {
+#     hidden: yes
     type: string
     sql: ${TABLE}.wdsp ;;
   }
@@ -201,6 +201,11 @@ view: gsod {
     hidden: yes
     type: string
     sql: ${TABLE}.count_wdsp ;;
+  }
+
+  measure: count_distinct_station_id {
+    type: count_distinct
+    sql: ${station_id} ;;
   }
 
   measure: count {

@@ -76,4 +76,10 @@ view: stations {
 #     approximate_threshold: 100000
     drill_fields: [name]
   }
+
+
+  measure: count_distinct_station {
+    type: count_distinct
+    sql: ${station_id} ;;
+  }
 }

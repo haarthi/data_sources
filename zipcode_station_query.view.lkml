@@ -1,4 +1,6 @@
-view: zipcode_station_test {
+explore: zipcode_station_query {}
+
+view: zipcode_station_query {
   derived_table: {
     sql_trigger_value: select 1 ;;
 
@@ -21,7 +23,9 @@ view: zipcode_station_test {
       from (
       SELECT zip_code
               , (CASE WHEN usaf = '999999' THEN wban ELSE usaf END) as station_id
-              , stations.name, City, lat, lon
+              , stations.name
+              , stations.end
+              ,City, lat, lon
               , 111.045* DEGREES(ACOS(COS(RADIANS(latpoint))
                          * COS(RADIANS(lat))
                          * COS(RADIANS(longpoint) - RADIANS(lon))
@@ -35,8 +39,9 @@ view: zipcode_station_test {
             100.0 AS radius,
             111.045 AS distance_unit
             from `lookerdata.weather.zipcode`
-        --     where zip_code in (11211, 20171, 20170, 10009)
-            where latitude is not null
+        --    where zip_code in (11211, 20171, 20170, 10009)
+            where State in ('NY')
+            and latitude is not null
         --    limit 100
          ) AS p
 
@@ -47,7 +52,6 @@ view: zipcode_station_test {
             AND lon
              BETWEEN p.longpoint - (p.radius / (p.distance_unit * COS(RADIANS(p.latpoint))))
                  AND p.longpoint + (p.radius / (p.distance_unit * COS(RADIANS(p.latpoint))))
-
          order by zip_code, distance_in_km asc
 
          )
@@ -62,7 +66,7 @@ view: zipcode_station_test {
 
   dimension: zip_code {
     primary_key: yes
-    hidden: yes
+#     hidden: yes
     type: zipcode
     sql: ${TABLE}.zip_code ;;
   }

@@ -5,11 +5,22 @@ include: "*.dashboard.lookml"  # include all dashboards in this project
 
 explore: gsod {
   join: stations {
-    type: left_outer
+    type: full_outer
     relationship: many_to_one
     sql_on: ${gsod.station_id} = ${stations.station_id} ;;
   }
+  # join: zipcode_station {
+  #   type: left_outer
+  #   relationship: one_to_many
+  #   sql_on: ${stations.station_id} = ${zipcode_station.nearest_station_id} ;;
+  # }
+  # join: zipcode {
+  #   type: left_outer
+  #   relationship: one_to_one
+  #   sql_on: ${zipcode_station.zip_code} = ${zipcode.zip_code} ;;
+  # }
   join: zipcode_station {
+    from: test_query
     type: left_outer
     relationship: one_to_many
     sql_on: ${stations.station_id} = ${zipcode_station.nearest_station_id} ;;
@@ -20,7 +31,13 @@ explore: gsod {
     sql_on: ${zipcode_station.zip_code} = ${zipcode.zip_code} ;;
   }
 
+
 }
+
+explore: stations {
+
+}
+explore: zipcode_station {}
 
 explore: zipcode {
   join: zipcode_station {
@@ -33,22 +50,8 @@ explore: zipcode {
     relationship: one_to_one
     sql_on: ${zipcode_station.nearest_station_id} = ${stations.station_id} ;;
   }
-#   join: weather {
-#     type:
-#   }
-
-
 }
 
-explore: weather {
-  join: stations {}
-
-  join: zipcode_station {}
-
-}
-explore: stations {}
-
-explore: zipcode_station {}
 
 
 # explore: zipcode {

@@ -6,7 +6,7 @@ view: zipcode_station {
     # hidden: yes
     type: zipcode
     map_layer_name: us_zipcode_tabulation_areas
-    sql: cast(${TABLE}.zip_code as int64) ;;
+    sql: cast(${TABLE}.zip_code as string);;
   }
 
   dimension: nearest_station_id {
