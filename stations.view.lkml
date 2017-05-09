@@ -17,9 +17,10 @@ view: stations {
     sql: ${TABLE}.wban ;;
   }
 
-  dimension: begin {
-    type: string
-    sql: ${TABLE}.begin ;;
+  dimension_group: begin {
+    type: time
+    timeframes: [year, month, date]
+    sql: PARSE_DATE('%Y%m%d', ${TABLE}.begin) ;;
   }
 
   dimension: call {
@@ -37,9 +38,10 @@ view: stations {
     sql: ${TABLE}.elev ;;
   }
 
-  dimension: end {
-    type: string
-    sql: ${TABLE}.end ;;
+  dimension_group: end {
+    type: time
+    timeframes: [year, month, date]
+    sql: PARSE_DATE('%Y%m%d', ${TABLE}.`end`) ;;
   }
 
   dimension: latitude {
