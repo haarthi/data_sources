@@ -123,6 +123,7 @@ view: gsod {
   measure: total_snow_inches {
     type: sum
     sql: ${snow_inches};;
+    value_format_name: decimal_2
   }
 
   dimension: snow_ice_pellets {
@@ -138,6 +139,12 @@ view: gsod {
   dimension: temperature {
     type: number
     sql: ${TABLE}.temp ;;
+  }
+
+  measure: average_temperature {
+    type: average
+    sql: ${temperature} ;;
+    value_format_name: decimal_2
   }
 
   dimension: thunder {

@@ -6,7 +6,7 @@ include: "*.dashboard.lookml"  # include all dashboards in this project
 explore: gsod {
   join: zipcode_station {
     view_label: "Stations"
-    from: test_query
+    # from: test_query
     type: left_outer
     relationship: many_to_one
     sql_on: ${gsod.station_id} = ${zipcode_station.nearest_station_id}

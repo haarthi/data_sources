@@ -40,7 +40,8 @@
 # }
 
 
-explore: test_query {}
+
+# Contains Latest Version of the working query
 
 view: test_query {
   derived_table: {
@@ -64,7 +65,7 @@ view: test_query {
       , first_value(station_id) OVER (PARTITION BY zip_code, year ORDER BY distance_in_km asc) AS nearest_station_id
       from (
       SELECT zip_code
-              , (CASE WHEN usaf = '99999' THEN usaf ELSE wban END) as station_id
+              , (CASE WHEN wban = '99999' THEN usaf ELSE wban END) as station_id
               , year
               , stations.name
               , stations.begin as begin_date
