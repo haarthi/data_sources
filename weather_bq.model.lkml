@@ -24,6 +24,13 @@ explore: gsod {
     relationship: one_to_one
     sql_on: ${zipcode_station.zip_code} = ${zipcode.zip_code} ;;
   }
+
+  join: county_zipcode_mapping{
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${zipcode.zip_code} = ${county_zipcode_mapping.zipcode}  ;;
+
+  }
 }
 
 # explore: stations {}
