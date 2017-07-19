@@ -1,5 +1,12 @@
-view: financial_indicators{
-  sql_table_name: finance.FRED_data ;;
+view: financial_indicators {
+
+  derived_table: {
+    sql_trigger_value: select count(*) ;;
+    sql:
+      SELECT *
+      from `lookerdata.finance.FRED_data`
+      where dataset_code in ('GDP', 'GDPC1', 'GDPPOT','CPIAUCSL', 'CPILFESL', 'GDPDEF', 'BASE','M1', 'M2', 'M1V', 'M2V', 'DFF','DTB3','DGS5','DGS10','DGS30','T5YIE','T10YIE','T5YIFR','TEDRATE','DPRIME', 'UNRATE','NROU','NROUST','CIVPART','EMRATIO','UNEMPLOY','PAYEMS','MANEMP','ICSA','IC4WSA', 'MEHOINUSA672N','DSPIC96','PCE','PCEDG','PSAVERT','RRSFS','DSPI', 'INDPRO','TCU','HOUST','GPDI','CP','STLFSI','DCOILWTICO','USSLIND','DTWEXM','DTWEXB', 'GFDEBTN','GFDEGDQ188S','EXCSRESNW','TOTCI');;
+  }
 
   dimension: primary_key {
     type: string
@@ -48,12 +55,12 @@ view: financial_indicators{
         sql: ${dataset_code} in ('GFDEBTN','GFDEGDQ188S','EXCSRESNW','TOTCI') ;;
         label: "Debt"
       }
-        # Possibly more when statements
-        else: "Non-Key Indicator"
-      }
+      # Other Categories
+      else: "Other Indicator"
+    }
   }
 
-  dimension_group: date {
+  dimension_group: indicator {
     type: time
     timeframes: [
       raw,
@@ -76,11 +83,13 @@ view: financial_indicators{
   measure: total_value {
     type: sum
     sql: ${value} ;;
+    value_format_name: usd
   }
 
   measure: average_value {
     type: average
     sql: ${value} ;;
+    value_format_name: usd
   }
 
   measure: count {

@@ -10,12 +10,11 @@ explore: financial_indicators {
     sql_on: ${financial_indicators.dataset_code} = ${indicators_metadata.dataset_code} ;;
     relationship: many_to_one
   }
-}
 
-# explore: cpi {}
-#
-# # explore: c_cpi_u {}
-#
-# explore: unemployment_cps {}
-#
-# explore: unemployment_cps_series {}
+  join: indicator_yoy {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${indicator_yoy.dataset_code} = ${financial_indicators.dataset_code}
+      and ${financial_indicators.indicator_year} = ${indicator_yoy.indicator_year}  ;;
+  }
+}
