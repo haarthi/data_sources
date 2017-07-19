@@ -1,5 +1,4 @@
 view: financial_indicators {
-
   derived_table: {
     sql_trigger_value: select count(*) ;;
     sql:
@@ -16,6 +15,7 @@ view: financial_indicators {
   }
 
   dimension: dataset_code {
+    label: "Indicator ID"
     type: string
     sql: ${TABLE}.dataset_code ;;
   }

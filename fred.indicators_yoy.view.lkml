@@ -1,5 +1,4 @@
-explore: indicator_yoy {}
-view: indicator_yoy {
+view: indicator_yoy_facts {
   derived_table: {
     sql_trigger_value: select count(*) ;;
     sql:
@@ -19,10 +18,15 @@ view: indicator_yoy {
     ;;
   }
 
-  #         where dataset_code in 'CPIAUCSL'
-
+  dimension: primary_key {
+    type: string
+    primary_key: yes
+    hidden: yes
+    sql:  concat(${dataset_code}, CAST(${TABLE}.date AS STRING)) ;;
+  }
 
   dimension: dataset_code {
+    label: "Indicator ID"
     type: string
     sql: ${TABLE}.dataset_code ;;
   }
@@ -43,10 +47,10 @@ view: indicator_yoy {
     sql: ${TABLE}.last_year_start_value ;;
   }
 
-  measure: inflation_rate_yoy {
+  measure: indicator_growth_yoy {
     type: number
     value_format_name: percent_2
-    sql: ((${start_value}-${last_year_start_value})/${last_year_start_value}) ;;
+    sql: ((${start_value}-${last_year_start_value})/NULLIF(${last_year_start_value}, 0)) ;;
   }
 
   set: detail {

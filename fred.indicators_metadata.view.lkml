@@ -3,6 +3,7 @@ view: indicators_metadata {
 
   dimension: dataset_code {
     primary_key: yes
+    hidden: yes
     type: string
     sql: REGEXP_REPLACE(${TABLE}.dataset_code, 'FRED/', '') ;;
   }
@@ -10,10 +11,5 @@ view: indicators_metadata {
   dimension: description {
     type: string
     sql: ${TABLE}.description ;;
-  }
-
-  measure: count {
-    type: count
-    drill_fields: []
   }
 }
