@@ -34,6 +34,7 @@ view: indicator_yoy_facts {
   dimension_group: indicator {
     type: time
     timeframes: [date, month, quarter, year]
+    convert_tz: no
     sql: ${TABLE}.date ;;
   }
 
