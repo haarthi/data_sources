@@ -1,5 +1,5 @@
 view: gsod {
-  sql_table_name: `lookerdata.weather.gsod*` ;;
+  sql_table_name: `bigquery-public-data.noaa_gsod.gsod*` ;;
 
   dimension: station_id {
     type: string
@@ -85,7 +85,6 @@ view: gsod {
     type: number
     sql: ${TABLE}.min ;;
   }
-
 
   dimension: max_wind_speed {
     type: string

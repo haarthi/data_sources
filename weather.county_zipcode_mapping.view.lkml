@@ -1,5 +1,4 @@
-explore: county_zipcode_mapping {
-}
+## NEED BETTER COUNTY ZIPCODE MAPPING FILE
 
 view: county_zipcode_mapping {
   sql_table_name: `lookerdata.weather.zcta_county_map` ;;

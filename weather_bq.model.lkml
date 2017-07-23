@@ -1,6 +1,6 @@
 connection: "bigquery_publicdata_standard_sql"
 
-include: "*.view.lkml"         # include all views in this project
+include: "weather*.view.lkml"         # include all views in this project
 include: "*.dashboard.lookml"  # include all dashboards in this project
 
 explore: gsod {
@@ -25,16 +25,12 @@ explore: gsod {
     sql_on: ${zipcode_station.zip_code} = ${zipcode.zip_code} ;;
   }
 
-  join: county_zipcode_mapping{
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${zipcode.zip_code} = ${county_zipcode_mapping.zipcode}  ;;
-
-  }
+  # join: county_zipcode_mapping{
+  #   type: left_outer
+  #   relationship: many_to_one
+  #   sql_on: ${zipcode.zip_code} = ${county_zipcode_mapping.zipcode}  ;;
+  # }
 }
-
-# explore: stations {}
-# explore: zipcode_station {}
 
 explore: zipcode {
   join: zipcode_station {
