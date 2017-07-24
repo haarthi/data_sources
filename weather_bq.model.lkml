@@ -32,9 +32,10 @@ explore: gsod {
   }
 }
 
+explore: state_year {}
+
 explore: zipcode {
   join: zipcode_station {
-    from: test_query
     type: left_outer
     relationship: many_to_one
     sql_on: ${zipcode.zip_code} = ${zipcode_station.zip_code} ;;

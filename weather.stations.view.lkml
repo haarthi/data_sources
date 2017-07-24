@@ -62,7 +62,6 @@ view: stations {
     sql_longitude:${longitude};;
   }
 
-
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
@@ -72,13 +71,6 @@ view: stations {
     type: string
     sql: ${TABLE}.state ;;
   }
-
-  measure: count {
-    type: count
-#     approximate_threshold: 100000
-    drill_fields: [name]
-  }
-
 
   measure: count_distinct_station {
     type: count_distinct

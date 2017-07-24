@@ -14,12 +14,13 @@ view: gsod {
   }
 
   dimension: station {
+    hidden: yes
     type: string
     sql: ${TABLE}.stn ;;
   }
 
   dimension: wban {
-    # hidden: yes
+    hidden: yes
     type: string
     sql: ${TABLE}.wban ;;
   }
@@ -46,42 +47,19 @@ view: gsod {
     sql: ${TABLE}.dewp ;;
   }
 
-  dimension: flag_max {
-    type: string
-    sql: ${TABLE}.flag_max ;;
-  }
-
-  dimension: flag_min {
-    type: string
-    sql: ${TABLE}.flag_min ;;
-  }
-
   dimension: flag_prcp {
     type: string
     sql: ${TABLE}.flag_prcp ;;
   }
 
-  dimension: fog {
-    type: string
-    sql: ${TABLE}.fog ;;
-  }
-
-  dimension: gust {
-    type: number
-    sql: ${TABLE}.gust ;;
-  }
-
-  dimension: hail {
-    type: string
-    sql: ${TABLE}.hail ;;
-  }
-
-  dimension: max_temp_day {
+  dimension: max_temperature {
+    group_label: "Temperature"
     type: number
     sql: ${TABLE}.max ;;
   }
 
-  dimension: min_temp_day {
+  dimension: min_temperature {
+    group_label: "Temperature"
     type: number
     sql: ${TABLE}.min ;;
   }
@@ -89,6 +67,16 @@ view: gsod {
   dimension: max_wind_speed {
     type: string
     sql: ${TABLE}.mxpsd ;;
+  }
+
+  dimension: gust {
+    type: number
+    sql: ${TABLE}.gust ;;
+  }
+
+  dimension: visibility {
+    type: number
+    sql: ${TABLE}.visib ;;
   }
 
   dimension: precipitation {
@@ -107,43 +95,19 @@ view: gsod {
     sql: ${TABLE}.rain_drizzle = '1' ;;
   }
 
-  dimension: sea_level_pressure {
-    type: number
-    sql: ${TABLE}.slp ;;
+  dimension: fog {
+    type: yesno
+    sql: ${TABLE}.fog = '1';;
   }
 
-  dimension: snow_inches {
-    type: number
-    sql: case when ${TABLE}.sndp = 999.9 then null else ${TABLE}.sndp end;;
-  }
-
-
-
-  measure: total_snow_inches {
-    type: sum
-    sql: ${snow_inches};;
-    value_format_name: decimal_2
+  dimension: hail {
+    type: yesno
+    sql: ${TABLE}.hail = '1' ;;
   }
 
   dimension: snow_ice_pellets {
     type: yesno
     sql: ${TABLE}.snow_ice_pellets = '1' ;;
-  }
-
-  dimension: mean_station_pressure {
-    type: number
-    sql: ${TABLE}.stp ;;
-  }
-
-  dimension: temperature {
-    type: number
-    sql: ${TABLE}.temp ;;
-  }
-
-  measure: average_temperature {
-    type: average
-    sql: ${temperature} ;;
-    value_format_name: decimal_2
   }
 
   dimension: thunder {
@@ -156,10 +120,45 @@ view: gsod {
     sql: ${TABLE}.tornado_funnel_cloud = '1' ;;
   }
 
-  dimension: visibility {
+  dimension: sea_level_pressure {
     type: number
-    sql: ${TABLE}.visib ;;
+    sql: ${TABLE}.slp ;;
   }
+
+  dimension: snow_inches {
+    type: number
+    sql: case when ${TABLE}.sndp = 999.9 then null else ${TABLE}.sndp end;;
+  }
+
+  measure: total_snow_inches {
+    type: sum
+    sql: ${snow_inches};;
+    value_format_name: decimal_2
+  }
+
+  dimension: mean_station_pressure {
+    type: number
+    sql: ${TABLE}.stp ;;
+  }
+
+  dimension: temperature {
+    hidden: yes
+    type: number
+    sql: case when ${TABLE}.temp = 9999.9 then null else ${TABLE}.temp end ;;
+  }
+
+  measure: average_temperature {
+    type: average
+    sql: ${temperature} ;;
+    value_format_name: decimal_2
+  }
+
+
+
+
+
+
+  ## Unused Fields
 
   dimension: month {
     hidden: yes
@@ -197,6 +196,18 @@ view: gsod {
     sql: ${TABLE}.count_temp ;;
   }
 
+  dimension: flag_max_temp {
+    hidden: yes
+    type: string
+    sql: ${TABLE}.flag_max ;;
+  }
+
+  dimension: flag_min_temp {
+    hidden: yes
+    type: string
+    sql: ${TABLE}.flag_min ;;
+  }
+
   dimension: count_visib {
     hidden: yes
     type: number
@@ -207,16 +218,5 @@ view: gsod {
     hidden: yes
     type: string
     sql: ${TABLE}.count_wdsp ;;
-  }
-
-  measure: count_distinct_station_id {
-    type: count_distinct
-    sql: ${station_id} ;;
-  }
-
-  measure: count {
-    type: count
-    # approximate_threshold: 100000
-    drill_fields: []
   }
 }
