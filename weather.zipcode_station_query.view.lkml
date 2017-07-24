@@ -19,13 +19,11 @@ view: state_year {
     }
 
     dimension: year {
-      label: "Gsod Year"
       type: string
       sql: ${TABLE}.year ;;
     }
 
     dimension: state {
-      label: "Zipcode State"
       type: string
       sql: ${TABLE}.state ;;
     }
