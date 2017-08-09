@@ -1,11 +1,11 @@
 view: zipcode_station {
   sql_table_name: `lookerdata.weather.zipcode_station` ;;
 
-  dimension: zip_code {
+  dimension: zipcode {
     # hidden: yes
     type: zipcode
     map_layer_name: us_zipcode_tabulation_areas
-    sql: cast(${TABLE}.zip_code as string);;
+    sql: cast(${TABLE}.zipcode as string);;
   }
 
   dimension: nearest_station_id {
@@ -21,7 +21,7 @@ view: zipcode_station {
   dimension: primary_key {
     type: string
     primary_key: yes
-    sql: concat(${zip_code}, ${year})  ;;
+    sql: concat(${zipcode}, ${year})  ;;
   }
 
   dimension: distance_from_nearest_station {
@@ -34,6 +34,6 @@ view: zipcode_station {
   }
 
   set: detail {
-    fields: [zip_code, nearest_station_id, distance_from_nearest_station]
+    fields: [zipcode, nearest_station_id, distance_from_nearest_station]
   }
 }

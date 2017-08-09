@@ -19,8 +19,16 @@ view: stations {
 
   dimension_group: begin {
     type: time
+    convert_tz: no
     timeframes: [year, month, date]
     sql: PARSE_DATE('%Y%m%d', ${TABLE}.begin) ;;
+  }
+
+  dimension_group: end {
+    type: time
+    timeframes: [year, month, date]
+    convert_tz: no
+    sql: PARSE_DATE('%Y%m%d', ${TABLE}.`end`) ;;
   }
 
   dimension: call {
@@ -36,12 +44,6 @@ view: stations {
   dimension: elev {
     type: string
     sql: ${TABLE}.elev ;;
-  }
-
-  dimension_group: end {
-    type: time
-    timeframes: [year, month, date]
-    sql: PARSE_DATE('%Y%m%d', ${TABLE}.`end`) ;;
   }
 
   dimension: latitude {

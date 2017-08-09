@@ -22,27 +22,34 @@ explore: gsod {
   join: zipcode {
     type: left_outer
     relationship: one_to_one
-    sql_on: ${zipcode_station.zip_code} = ${zipcode.zip_code} ;;
+    sql_on: ${zipcode_station.zipcode} = ${zipcode.zipcode} ;;
   }
 
   join: county_zipcode_mapping{
     type: left_outer
     relationship: many_to_one
-    sql_on: ${zipcode.zip_code} = ${county_zipcode_mapping.zipcode}  ;;
+    sql_on: ${zipcode.zipcode} = ${county_zipcode_mapping.zipcode}  ;;
   }
 }
 
 explore: state_year {}
 
+explore: county_zipcode_mapping{}
+
 explore: zipcode {
   join: zipcode_station {
     type: left_outer
     relationship: many_to_one
-    sql_on: ${zipcode.zip_code} = ${zipcode_station.zip_code} ;;
+    sql_on: ${zipcode.zipcode} = ${zipcode_station.zipcode} ;;
   }
   join: stations {
     type: left_outer
     relationship: one_to_one
     sql_on: ${zipcode_station.nearest_station_id} = ${stations.station_id} ;;
+  }
+  join: county_zipcode_mapping{
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${zipcode.zipcode} = ${county_zipcode_mapping.zipcode}  ;;
   }
 }

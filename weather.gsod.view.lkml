@@ -79,16 +79,42 @@ view: gsod {
     sql: ${TABLE}.visib ;;
   }
 
-  dimension: precipitation {
+  dimension: rainfall {
     type: number
     sql: case when ${TABLE}.prcp = 99.99 then null else ${TABLE}.prcp end;;
   }
 
-  measure: total_precipitation {
+  dimension: has_rainfall {
+    type: yesno
+    hidden: yes
+    sql: ${rainfall} > 0.0 ;;
+  }
+
+  measure: total_rainfall {
+    group_label: "Zipcode"
+    sql: ${rainfall} ;;
+    value_format_name: decimal_2
+    type: sum_distinct
+    sql_distinct_key: ${station_id} ;;
+  }
+
+  measure: total_snow_inches {
+    group_label: "Zipcode"
     type: sum
-    sql: ${precipitation} ;;
+    sql: ${snow_inches};;
     value_format_name: decimal_2
   }
+
+  measure: average_rainfall {
+    type: average
+    sql: ${rainfall} ;;
+    value_format_name: decimal_2
+  }
+
+
+## Aggregated Station Counts by Year --
+#   measure: total_days_with_rainfall{
+#   }
 
   dimension: rain_drizzle {
     type: yesno
@@ -128,12 +154,6 @@ view: gsod {
   dimension: snow_inches {
     type: number
     sql: case when ${TABLE}.sndp = 999.9 then null else ${TABLE}.sndp end;;
-  }
-
-  measure: total_snow_inches {
-    type: sum
-    sql: ${snow_inches};;
-    value_format_name: decimal_2
   }
 
   dimension: mean_station_pressure {

@@ -4,7 +4,6 @@ view: county_zipcode_mapping {
   sql_table_name: `lookerdata.weather.zcta_county_map` ;;
 
   dimension: zipcode {
-#     primary_key: yes
     type: zipcode
     sql: ${TABLE}.zcta5 ;;
     map_layer_name: us_zipcode_tabulation_areas

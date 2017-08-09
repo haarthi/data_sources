@@ -1,7 +1,7 @@
 view: zipcode {
   sql_table_name: `lookerdata.weather.zipcode` ;;
 
-  dimension: zip_code {
+  dimension: zipcode {
     primary_key: yes
     map_layer_name: us_zipcode_tabulation_areas
     type: zipcode
@@ -47,7 +47,7 @@ view: zipcode {
 
   set: detail {
     fields: [
-      zip_code,
+      zipcode,
       latitude,
       longitude,
       city,
