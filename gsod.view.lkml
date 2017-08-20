@@ -1,11 +1,33 @@
-view: weather {
-  sql_table_name: `lookerdata.weather.gsod*`
-    ;;
 
-  dimension: partition_year {
-    type: string
-    sql: REGEXP_EXTRACT(_TABLE_SUFFIX,r'\d\d\d\d[A-Z][a-z][a-z]') ;;
+view: gsod_pdt {
+  derived_table: {
+    persist_for: "100 hours"
+    distribution_style: all
+    sql: SELECT count(*) as total_weather FROM datablocks_spectrum.zcta_distances
+      ;;
   }
+
+  measure: count {
+    type: count
+    drill_fields: [detail*]
+  }
+
+  dimension: total_weather {
+    type: number
+    sql: ${TABLE}.total_weather ;;
+  }
+
+  set: detail {
+    fields: [total_weather]
+  }
+}
+
+
+
+
+
+view: gsod_spectrum {
+  sql_table_name: datablocks_spectrum.gsod ;;
 
   dimension: count_dewp {
     type: number
@@ -33,17 +55,17 @@ view: weather {
   }
 
   dimension: count_wdsp {
-    type: string
+    type: number
     sql: ${TABLE}.count_wdsp ;;
   }
 
   dimension: da {
-    type: string
+    type: number
     sql: ${TABLE}.da ;;
   }
 
   dimension: dewp {
-    type: number
+    type: string
     sql: ${TABLE}.dewp ;;
   }
 
@@ -63,32 +85,32 @@ view: weather {
   }
 
   dimension: fog {
-    type: string
+    type: number
     sql: ${TABLE}.fog ;;
   }
 
   dimension: gust {
-    type: number
+    type: string
     sql: ${TABLE}.gust ;;
   }
 
   dimension: hail {
-    type: string
+    type: number
     sql: ${TABLE}.hail ;;
   }
 
   dimension: max {
-    type: number
+    type: string
     sql: ${TABLE}.max ;;
   }
 
   dimension: min {
-    type: number
+    type: string
     sql: ${TABLE}.min ;;
   }
 
   dimension: mo {
-    type: string
+    type: number
     sql: ${TABLE}.mo ;;
   }
 
@@ -103,32 +125,32 @@ view: weather {
   }
 
   dimension: rain_drizzle {
-    type: string
+    type: number
     sql: ${TABLE}.rain_drizzle ;;
   }
 
   dimension: slp {
-    type: number
+    type: string
     sql: ${TABLE}.slp ;;
   }
 
   dimension: sndp {
-    type: number
+    type: string
     sql: ${TABLE}.sndp ;;
   }
 
   dimension: snow_ice_pellets {
-    type: string
+    type: number
     sql: ${TABLE}.snow_ice_pellets ;;
   }
 
   dimension: stn {
-    type: string
+    type: number
     sql: ${TABLE}.stn ;;
   }
 
   dimension: stp {
-    type: number
+    type: string
     sql: ${TABLE}.stp ;;
   }
 
@@ -138,22 +160,22 @@ view: weather {
   }
 
   dimension: thunder {
-    type: string
+    type: number
     sql: ${TABLE}.thunder ;;
   }
 
   dimension: tornado_funnel_cloud {
-    type: string
+    type: number
     sql: ${TABLE}.tornado_funnel_cloud ;;
   }
 
   dimension: visib {
-    type: number
+    type: string
     sql: ${TABLE}.visib ;;
   }
 
   dimension: wban {
-    type: string
+    type: number
     sql: ${TABLE}.wban ;;
   }
 
@@ -163,13 +185,12 @@ view: weather {
   }
 
   dimension: year {
-    type: string
+    type: number
     sql: ${TABLE}.year ;;
   }
 
   measure: count {
     type: count
-#     approximate_threshold: 100000
     drill_fields: []
   }
 }

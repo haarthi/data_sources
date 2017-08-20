@@ -8,11 +8,13 @@ view: stations {
   }
 
   dimension: usaf {
+    hidden: yes
     type: string
     sql: ${TABLE}.usaf ;;
   }
 
   dimension: wban {
+    hidden: yes
     type: string
     sql: ${TABLE}.wban ;;
   }

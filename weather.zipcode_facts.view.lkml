@@ -1,11 +1,12 @@
-view: zipcode {
+view: zipcode_facts {
   sql_table_name: `lookerdata.weather.zipcode` ;;
 
   dimension: zipcode {
     primary_key: yes
+    hidden: yes
     map_layer_name: us_zipcode_tabulation_areas
     type: zipcode
-    sql: cast(${TABLE}.zip_code as string);;
+    sql: RPAD(cast(${TABLE}.zip_code as string), 5, '0') ;;
   }
 
   dimension: latitude {
@@ -25,12 +26,13 @@ view: zipcode {
     sql: ${TABLE}.city ;;
   }
 
-  dimension: state {
+  dimension: zipcode_state {
     type: string
     sql: ${TABLE}.state ;;
   }
 
-  dimension: county {
+  dimension: county_name {
+    group_label: "County"
     type: string
     sql: ${TABLE}.county ;;
   }
@@ -51,8 +53,8 @@ view: zipcode {
       latitude,
       longitude,
       city,
-      state,
-      county,
+      zipcode_state,
+      county_name,
       location
     ]
   }
