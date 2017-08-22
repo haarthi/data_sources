@@ -23,7 +23,7 @@ view: zipcode_station {
   }
 
   dimension: year {
-    # hidden: yes
+    hidden: yes
     type: string
     sql: cast(${TABLE}.year as string) ;;
   }

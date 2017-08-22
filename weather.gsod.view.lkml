@@ -55,18 +55,6 @@ view: gsod {
     sql: ${TABLE}.flag_prcp ;;
   }
 
-  dimension: max_temperature {
-    group_label: "Temperature"
-    type: number
-    sql: ${TABLE}.max ;;
-  }
-
-  dimension: min_temperature {
-    group_label: "Temperature"
-    type: number
-    sql: ${TABLE}.min ;;
-  }
-
   dimension: max_wind_speed {
     group_label: "Weather Event"
     type: string
@@ -193,6 +181,17 @@ view: gsod {
   }
 
 
+  measure: min_temperature {
+    type: min
+    sql: ${TABLE}.min ;;
+    value_format_name: decimal_2
+  }
+
+  measure: max_temperature {
+    type: max
+    sql: ${TABLE}.max ;;
+    value_format_name: decimal_2
+  }
 
 
 
