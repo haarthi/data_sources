@@ -3,27 +3,6 @@ connection: "bigquery_publicdata_standard_sql"
 include: "weather*.view.lkml"         # include all views in this project
 include: "*.dashboard.lookml"  # include all dashboards in this project
 
-explore: zipcode_station {}
-
-
-explore: zipcode_county {
-  join: zipcode_facts {
-    type: left_outer
-    sql_on: ${zipcode_county.zipcode} = ${zipcode_facts.zipcode} ;;
-    relationship: one_to_many
-  }
-  join: zipcode_station {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${zipcode_county.zipcode} = ${zipcode_station.zipcode} ;;
-  }
-  join: stations {
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${zipcode_station.nearest_station_id} = ${stations.station_id} ;;
-  }
-}
-
 explore: gsod {
   join: zipcode_station {
     view_label: "Geography"
@@ -55,5 +34,23 @@ explore: gsod {
     type: left_outer
     relationship: one_to_many
     sql_on: ${zipcode_county.zipcode} = ${zipcode_facts.zipcode} ;;
+  }
+}
+
+explore: zipcode_county {
+  join: zipcode_facts {
+    type: left_outer
+    sql_on: ${zipcode_county.zipcode} = ${zipcode_facts.zipcode} ;;
+    relationship: one_to_many
+  }
+  join: zipcode_station {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${zipcode_county.zipcode} = ${zipcode_station.zipcode} ;;
+  }
+  join: stations {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${zipcode_station.nearest_station_id} = ${stations.station_id} ;;
   }
 }

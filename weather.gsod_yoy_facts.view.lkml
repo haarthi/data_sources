@@ -1,5 +1,6 @@
 view: gsod_yoy_facts {
   derived_table: {
+#     distribution_style: "all"
     sql_trigger_value: select count(*) ;;
     sql: CREATE TEMPORARY FUNCTION looker_array_sum(ar ARRAY<STRING>) AS ((SELECT SUM(CAST(REGEXP_EXTRACT(val, '\\|\\|(\\-?\\d+(?:.\\d+)?)$') AS FLOAT64)) FROM UNNEST(ar) as val));
 

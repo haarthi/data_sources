@@ -5,8 +5,14 @@ include: "*.dashboard.lookml"  # include all dashboards in this project
 
 
 explore: financial_indicators {
+  join: indicators_metadata_codes {
+    view_label: "Indicator Details"
+    type: left_outer
+    sql_on: ${financial_indicators.dataset_code} = ${indicators_metadata_codes.dataset_code} ;;
+    relationship: one_to_one
+  }
   join: indicators_metadata {
-    view_label: "Financial Indicators"
+    view_label: "Indicator Details"
     type: left_outer
     sql_on: ${financial_indicators.dataset_code} = ${indicators_metadata.dataset_code} ;;
     relationship: many_to_one
