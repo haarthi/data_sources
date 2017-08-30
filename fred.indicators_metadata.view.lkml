@@ -38,6 +38,7 @@ view: indicators_metadata {
   }
 
   dimension: description {
+    view_label: "Indicator"
     type: string
     sql: ${TABLE}.description ;;
   }

@@ -5,6 +5,7 @@ include: "*.dashboard.lookml"  # include all dashboards in this project
 
 
 explore: financial_indicators {
+  view_label: "Indicator"
   join: indicators_metadata_codes {
     view_label: "Indicator Details"
     type: left_outer

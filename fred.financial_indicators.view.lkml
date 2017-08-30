@@ -77,6 +77,7 @@ view: financial_indicators {
   }
 
   dimension_group: next_indicator {
+    view_label: "Indicator Details"
     type: time
     timeframes: [
       raw,
@@ -109,6 +110,7 @@ view: financial_indicators {
   }
 
   measure: count {
+    hidden: yes
     type: count
     drill_fields: []
   }
