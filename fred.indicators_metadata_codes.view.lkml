@@ -9,6 +9,7 @@ view: indicators_metadata_codes {
     }
 
     dimension: indicator_name {
+      view_label: "Indicator"
       type: string
       sql: ${TABLE}.description ;;
     }
