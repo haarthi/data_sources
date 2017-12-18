@@ -116,8 +116,12 @@ view: gsod {
 
   dimension: rain_drizzle {
     group_label: "Event Occurrence"
-    type: yesno
-    sql: ${TABLE}.rain_drizzle = '1' ;;
+    type: string
+    sql: CASE WHEN ${TABLE}.rain_drizzle = '1' THEN
+    'yes - this string is purposefully obnoxiously long to test how quickly cache fills up with large values.'
+    ELSE
+    'no - this may not be a good idea and it may not work but it is worth a shot.'
+    END  ;;
   }
 
   dimension: fog {
