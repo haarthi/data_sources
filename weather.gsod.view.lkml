@@ -75,7 +75,7 @@ view: gsod {
 
   dimension: rainfall {
     type: number
-    sql: case when ${TABLE}.prcp = 99.99 then null else ${TABLE}.prcp end;;
+    sql: case when ${TABLE}.prcp = 99.99 then null else 1000000000.0*${TABLE}.prcp end;;
   }
 
   dimension: has_rainfall {
@@ -100,8 +100,8 @@ view: gsod {
 
   measure: average_rainfall {
     type: average
-    sql: ${rainfall} ;;
-    value_format_name: decimal_2
+    sql: ${rainfall}/10000 ;;
+    value_format_name: large_float
   }
 
 
@@ -177,7 +177,7 @@ view: gsod {
   measure: average_temperature {
     type: average
     sql: ${temperature} ;;
-    value_format_name: decimal_2
+    value_format_name: usd
   }
 
 
@@ -200,7 +200,7 @@ view: gsod {
 
   measure: count {
     type: count
-
+    value_format_name: percent_2
   }
 
   dimension: month {

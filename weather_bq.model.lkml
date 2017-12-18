@@ -54,3 +54,7 @@ explore: zipcode_county {
     sql_on: ${zipcode_station.nearest_station_id} = ${stations.station_id} ;;
   }
 }
+
+named_value_format: large_float {
+  value_format: "[<1000]0;[>=1000000]0.00,,\"M\";[>=1000]0.0,\"K\""
+}
